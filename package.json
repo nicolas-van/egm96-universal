@@ -1,0 +1,11 @@
+{
+  "name": "egm96",
+  "version": "0.0.1",
+  "description": "Gets a height from EGM96 geoid model from NGA binary data",
+  "main": "egm96.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Johnathan Leppert <johnathan.leppert@gmail.com>",
+  "license": "ISC"
+}
