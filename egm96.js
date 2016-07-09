@@ -53,9 +53,9 @@ function getOffset(latitude, longitude) {
   var v = (latTop - latitude) / INTERVAL_DEGREE;
 
   var pll = (1.0 - u) * (1.0 - v);
-  var plr = u * (1.0 - v);
+  var plr = (1.0 - u) * v;
   var pur = u * v;
-  var pul = (1.0 - u) * v;
+  var pul = u * (1.0 - v);
 
   var offset = pll * ll + plr * lr + pur * ur + pul * ul;
 
