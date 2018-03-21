@@ -1,6 +1,7 @@
 var fs = require('fs');
+var path = require('path');
 
-var data = fs.readFileSync('./WW15MGH.DAC');
+var data = fs.readFileSync(path.join(__dirname,'/WW15MGH.DAC'));
 
 function toDegree(radians) {
   return radians * (180 / Math.PI);
