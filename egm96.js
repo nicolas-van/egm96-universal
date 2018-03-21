@@ -63,5 +63,4 @@ function getOffset(latitude, longitude) {
   return offset / 100;
 };
 
-console.log(getOffset(38.6281550, 269.7791550));
 module.exports = getOffset;
