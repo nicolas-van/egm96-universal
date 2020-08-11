@@ -4,8 +4,9 @@
   "description": "A library to convert between EGM96-relative altitudes and WGS84 ellipsoid-relative altitudes",
   "main": "egm96.js",
   "scripts": {
-    "test": "npm run lint",
-    "lint": "eslint \"*.js\" \"src/**/*.js\""
+    "test": "npm run lint && npm run jest",
+    "lint": "eslint \"*.js\" \"src/**/*.js\"",
+    "jest": "jest"
   },
   "repository": {
     "type": "git",
