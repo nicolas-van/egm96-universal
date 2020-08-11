@@ -1,11 +1,26 @@
 {
-  "name": "egm96",
-  "version": "0.0.1",
-  "description": "Gets a height from EGM96 geoid model from NGA binary data",
+  "name": "egm96-universal",
+  "version": "0.0.0",
+  "description": "A library to convert between EGM96-relative altitudes and WGS84 ellipsoid-relative altitudes",
   "main": "egm96.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Johnathan Leppert <johnathan.leppert@gmail.com>",
-  "license": "ISC"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicolas-van/egm96-universal.git"
+  },
+  "keywords": [
+    "egm96",
+    "map",
+    "wgs84",
+    "coordinate",
+    "altitude"
+  ],
+  "author": "Nicolas Vanhoren",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nicolas-van/egm96-universal/issues"
+  },
+  "homepage": "https://github.com/nicolas-van/egm96-universal#readme"
 }

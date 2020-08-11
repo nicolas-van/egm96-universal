@@ -1,2 +1,3 @@
-# egm96
-Gets a height from EGM96 geoid model from NGA binary data
+# egm96-universal
+
+A library to convert between EGM96-relative altitudes and WGS84 ellipsoid-relative altitudes.
