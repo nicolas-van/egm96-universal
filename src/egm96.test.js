@@ -11,6 +11,7 @@ const clean = (path) => {
 }
 
 const getReferenceHeight = (lat, lon) => {
+  lon = lon < 0 ? lon + 360 : lon
   try {
     clean(path.join(__dirname, '../INPUT.DAT'))
     clean(path.join(__dirname, '../OUTINTPT.DAT'))
@@ -43,9 +44,9 @@ test('base test', async () => {
   }
   testComparison(0, 0)
   testComparison(10, 10)
-  testComparison(-10, 350)
+  testComparison(-10, -10)
   testComparison(60, 60)
-  testComparison(-60, 300)
+  testComparison(-60, -60)
   testComparison(50.7129201, 5.6688935)
   testComparison(50.7113365, 5.6797431)
 })
