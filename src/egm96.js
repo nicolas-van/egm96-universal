@@ -33,21 +33,25 @@ export function getGeoidMeanSeaLevel (latitude, longitude) {
     rightCol = 0
   }
 
-  const latBottom = 90 - bottomRow * INTERVAL
-  const lonLeft = leftCol * INTERVAL
-
   const ul = gePostOffset(topRow, leftCol)
   const ll = gePostOffset(bottomRow, leftCol)
   const lr = gePostOffset(bottomRow, rightCol)
   const ur = gePostOffset(topRow, rightCol)
 
-  const u = (lon - lonLeft) / INTERVAL
-  const v = (lat - latBottom) / INTERVAL
+  const latBottom = 90 - (bottomRow * INTERVAL)
+  const latTop = 90 - (topRow * INTERVAL)
+  const lonLeft = leftCol * INTERVAL
+  const lonRight = rightCol * INTERVAL
 
-  const pll = (1.0 - u) * (1.0 - v)
-  const plr = u * (1.0 - v)
-  const pur = u * v
-  const pul = (1.0 - u) * v
+  const leftDistance = (lon - lonLeft) / INTERVAL
+  const bottomDistance = (lat - latBottom) / INTERVAL
+  const rightDistance = (lonRight - lon) / INTERVAL
+  const topDistance = (latTop - lat) / INTERVAL
+
+  const pll = rightDistance * topDistance
+  const plr = leftDistance * topDistance
+  const pur = leftDistance * bottomDistance
+  const pul = rightDistance * bottomDistance
 
   const offset = pll * ll + plr * lr + pur * ur + pul * ul
 
