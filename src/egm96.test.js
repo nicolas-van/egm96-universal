@@ -46,7 +46,7 @@ const testComparison = (lat, lon, display) => {
 
 test('intersection test', () => {
   for (let a = -89; a <= 90; a += 30) {
-    for (let o = -180; o <= 180; o += 30) {
+    for (let o = -179; o <= 180; o += 30) {
       testComparison(a, o, false)
     }
   }
@@ -54,7 +54,7 @@ test('intersection test', () => {
 
 test('non intersection test', async () => {
   for (const [lat, lon] of samples) {
-    testComparison(lat, lon, true)
+    testComparison(lat, lon, false)
   }
 })
 
