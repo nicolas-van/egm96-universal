@@ -149,7 +149,7 @@ c call interpolation subroutine
 
 c output the interpolated points
        WRITE(20,997)FLAT,FLON,UN
-997   format(2f14.7,f12.2)
+997   format(2f14.7,f12.7)
 
       GOTO 80
 
