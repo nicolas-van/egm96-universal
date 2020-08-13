@@ -46,8 +46,8 @@ export function getGeoidMeanSeaLevel (latitude, longitude) {
   const lr = gePostOffset(bottomRow, rightCol)
   const ur = gePostOffset(topRow, rightCol)
 
-  const latTop = (Math.PI / 2) - (topRow * INTERVAL)
   const lonLeft = leftCol * INTERVAL
+  const latTop = (Math.PI / 2) - (topRow * INTERVAL)
 
   const leftProp = (lon - lonLeft) / INTERVAL
   const topProp = (latTop - lat) / INTERVAL

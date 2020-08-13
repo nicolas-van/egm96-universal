@@ -52,10 +52,17 @@ test('intersection test', () => {
   }
 })
 
-test('non intersection test', async () => {
+test('non intersection test', () => {
   for (const [lat, lon] of samples) {
     testComparison(lat, lon, false)
   }
+})
+
+test('extremes', () => {
+  expect(egm96.getGeoidMeanSeaLevel(-90, -180)).not.toBeNull()
+  expect(egm96.getGeoidMeanSeaLevel(90, -180)).not.toBeNull()
+  expect(egm96.getGeoidMeanSeaLevel(-90, 180)).not.toBeNull()
+  expect(egm96.getGeoidMeanSeaLevel(90, 180)).not.toBeNull()
 })
 
 // 100 randomly generated coordinates
