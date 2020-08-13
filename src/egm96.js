@@ -28,9 +28,13 @@ const NUM_ROWS = 721
 const NUM_COLS = 1440
 
 /**
- * @override
+ * Gets the mean sea level according to the EGM96.
+ *
+ * @param {number} latitude The latitude in degrees
+ * @param {number} longitude The longitude in degrees
+ * @returns {number} The mean sea level in meters, relative to the WGS84 ellipsoid.
  */
-export function getGeoidMeanSeaLevel (latitude, longitude) {
+export function meanSeaLevel (latitude, longitude) {
   const lat = normalizeRadians(degreesToRadians(latitude))
   const lon = normalizeRadians(degreesToRadians(longitude), Math.PI)
 
@@ -64,4 +68,32 @@ const bilinearInterpolation = (ul, ll, lr, ur, x, y) => {
 
 const linearInterpolation = (a, b, prop) => {
   return a + ((b - a) * prop)
+}
+
+/**
+ * Converts a WGS84's ellipsoid-relative altitude to an EGM96-relative
+ * altitude.
+ *
+ * @param {number} latitude The latitude in degrees
+ * @param {number} longitude The longitude in degrees
+ * @param {number} altitude The altitude relative to the WGS84's ellipsoid in meters
+ * @returns {number} The altitude relative to EGM96 in meters
+ */
+export function ellipsoidToEgm96 (latitude, longitude, altitude) {
+  const ms = meanSeaLevel(latitude, longitude)
+  return altitude - ms
+}
+
+/**
+ * Converts an EGM96-relative altitude to a WGS84's ellipsoid-relative
+ * altitude.
+ *
+ * @param {number} latitude The latitude in degrees
+ * @param {number} longitude The longitude in degrees
+ * @param {number} altitude The altitude relative to EGM96 in meters
+ * @returns {number} The altitude relative to the WGS84's ellipsoid in meters
+ */
+export function egm96ToEllipsoid (latitude, longitude, altitude) {
+  const ms = meanSeaLevel(latitude, longitude)
+  return altitude + ms
 }

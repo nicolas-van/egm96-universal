@@ -37,7 +37,7 @@ const getReferenceHeight = (lat, lon) => {
 
 const testComparison = (lat, lon, display) => {
   const ref = getReferenceHeight(lat, lon)
-  const calc = egm96.getGeoidMeanSeaLevel(lat, lon)
+  const calc = egm96.meanSeaLevel(lat, lon)
   if (display) {
     console.log(`${lat} ${lon}: ref=${ref}, calc=${calc}`)
   }
@@ -59,10 +59,15 @@ test('non intersection test', () => {
 })
 
 test('extremes', () => {
-  expect(egm96.getGeoidMeanSeaLevel(-90, -180)).not.toBeNull()
-  expect(egm96.getGeoidMeanSeaLevel(90, -180)).not.toBeNull()
-  expect(egm96.getGeoidMeanSeaLevel(-90, 180)).not.toBeNull()
-  expect(egm96.getGeoidMeanSeaLevel(90, 180)).not.toBeNull()
+  expect(egm96.meanSeaLevel(-90, -180)).not.toBeNull()
+  expect(egm96.meanSeaLevel(90, -180)).not.toBeNull()
+  expect(egm96.meanSeaLevel(-90, 180)).not.toBeNull()
+  expect(egm96.meanSeaLevel(90, 180)).not.toBeNull()
+})
+
+test('conversion', () => {
+  expect(egm96.egm96ToEllipsoid(50.7129201, 5.6688935, 55.231)).toBeCloseTo(101.698, 3)
+  expect(egm96.ellipsoidToEgm96(50.7129201, 5.6688935, 101.698)).toBeCloseTo(55.231, 3)
 })
 
 // 100 randomly generated coordinates
