@@ -23,10 +23,6 @@ const normalizeRadians = (rads, center = 0) => {
   return rads - (2 * Math.PI) * Math.floor((rads + Math.PI - center) / (2 * Math.PI))
 }
 
-const interpolate = (a, b, prop) => {
-  return a + ((b - a) * prop)
-}
-
 const INTERVAL = degreesToRadians(15 / 60)
 const NUM_ROWS = 721
 const NUM_COLS = 1440
@@ -56,10 +52,16 @@ export function getGeoidMeanSeaLevel (latitude, longitude) {
   const leftProp = (lon - lonLeft) / INTERVAL
   const topProp = (latTop - lat) / INTERVAL
 
-  const top = interpolate(ul, ur, leftProp)
-  const bottom = interpolate(ll, lr, leftProp)
+  return bilinearInterpolation(ul, ll, lr, ur, leftProp, topProp)
+}
 
-  const offset = interpolate(top, bottom, topProp)
+const bilinearInterpolation = (ul, ll, lr, ur, x, y) => {
+  const top = linearInterpolation(ul, ur, x)
+  const bottom = linearInterpolation(ll, lr, x)
 
-  return offset
+  return linearInterpolation(top, bottom, y)
+}
+
+const linearInterpolation = (a, b, prop) => {
+  return a + ((b - a) * prop)
 }
