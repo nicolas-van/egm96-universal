@@ -37,7 +37,7 @@ const getReferenceHeight = (lat, lon) => {
 test('base test', async () => {
   const testComparison = (lat, lon) => {
     const ref = getReferenceHeight(lat, lon)
-    expect(egm96.getGeoidMeanSeaLevel(lat, lon)).toBeCloseTo(ref, 2)
+    expect(egm96.getGeoidMeanSeaLevel(lat, lon)).toBeCloseTo(ref, 1)
   }
   testComparison(0, 0)
   testComparison(10, 10)

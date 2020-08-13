@@ -9,26 +9,7 @@ const getData = (id) => {
   return dt.getInt16(id * 2, false)
 }
 
-const toDegree = (radians) => {
-  return radians * (180 / Math.PI)
-}
-
-const fromDegree = (degrees) => {
-  return degrees * (Math.PI / 180)
-}
-
-const getPostOffset = (row, col) => {
-  const k = row * NUM_COLS + col
-
-  if (k >= data.length * 2) {
-    throw new RangeError('Offset exceeds height measurements')
-  }
-
-  return getData(k)
-}
-
-const INTERVAL = fromDegree(15 / 60)
-const INTERVAL_DEGREE = toDegree(INTERVAL)
+const INTERVAL = 15 / 60
 const NUM_ROWS = 721
 const NUM_COLS = 1440
 
@@ -36,37 +17,45 @@ const NUM_COLS = 1440
  * @override
  */
 export function getGeoidMeanSeaLevel (latitude, longitude) {
-  longitude = longitude >= 0 ? longitude : longitude + 360
+  const lat = latitude
+  const lon = longitude >= 0 ? longitude : longitude + 360
 
-  let topRow = Math.round((90 - latitude) / INTERVAL_DEGREE)
-  if (latitude <= -90) topRow = NUM_ROWS - 2
+  let topRow = Math.floor((90 - lat) / INTERVAL)
+  if (lat <= -90) {
+    topRow = NUM_ROWS - 2
+  }
   const bottomRow = topRow + 1
-
-  let leftCol = Math.round(longitude / INTERVAL_DEGREE)
+  let leftCol = Math.floor(lon / INTERVAL)
   let rightCol = leftCol + 1
 
-  if (longitude >= 360 - INTERVAL_DEGREE) {
+  if (lon >= 360 - INTERVAL) {
     leftCol = NUM_COLS - 1
     rightCol = 0
   }
 
-  const latTop = 90 - topRow * INTERVAL_DEGREE
-  const lonLeft = leftCol * INTERVAL_DEGREE
+  const latBottom = 90 - bottomRow * INTERVAL
+  const lonLeft = leftCol * INTERVAL
 
-  const ul = getPostOffset(topRow, leftCol)
-  const ll = getPostOffset(bottomRow, leftCol)
-  const lr = getPostOffset(bottomRow, rightCol)
-  const ur = getPostOffset(topRow, rightCol)
+  const ul = gePostOffset(topRow, leftCol)
+  const ll = gePostOffset(bottomRow, leftCol)
+  const lr = gePostOffset(bottomRow, rightCol)
+  const ur = gePostOffset(topRow, rightCol)
 
-  const u = (longitude - lonLeft) / INTERVAL_DEGREE
-  const v = (latTop - latitude) / INTERVAL_DEGREE
+  const u = (lon - lonLeft) / INTERVAL
+  const v = (lat - latBottom) / INTERVAL
 
   const pll = (1.0 - u) * (1.0 - v)
-  const plr = (1.0 - u) * v
+  const plr = u * (1.0 - v)
   const pur = u * v
-  const pul = u * (1.0 - v)
+  const pul = (1.0 - u) * v
 
   const offset = pll * ll + plr * lr + pur * ur + pul * ul
 
   return offset / 100
-};
+}
+
+const gePostOffset = (row, col) => {
+  const k = row * NUM_COLS + col
+
+  return getData(k)
+}
