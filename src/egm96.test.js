@@ -35,20 +35,24 @@ const getReferenceHeight = (lat, lon) => {
   }
 }
 
-test('base test', async () => {
-  const testComparison = (lat, lon, display) => {
-    const ref = getReferenceHeight(lat, lon)
-    const calc = egm96.getGeoidMeanSeaLevel(lat, lon)
-    if (display) {
-      console.log(`${lat} ${lon}: ref=${ref}, calc=${calc}`)
-    }
-    expect(calc).toBeCloseTo(ref, 1)
+const testComparison = (lat, lon, display) => {
+  const ref = getReferenceHeight(lat, lon)
+  const calc = egm96.getGeoidMeanSeaLevel(lat, lon)
+  if (display) {
+    console.log(`${lat} ${lon}: ref=${ref}, calc=${calc}`)
   }
+  expect(calc).toBeCloseTo(ref, 1)
+}
+
+test('intersection test', () => {
   for (let a = -89; a <= 90; a += 30) {
     for (let o = -180; o <= 180; o += 30) {
       testComparison(a, o, false)
     }
   }
+})
+
+test('non intersection test', async () => {
   testComparison(50.7129201, 5.6688935, true)
   testComparison(50.7113365, 5.6797431, true)
 })

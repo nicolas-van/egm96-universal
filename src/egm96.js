@@ -9,6 +9,12 @@ const getData = (id) => {
   return dt.getInt16(id * 2, false)
 }
 
+const gePostOffset = (row, col) => {
+  const k = row * NUM_COLS + col
+
+  return getData(k) / 100
+}
+
 const INTERVAL = 15 / 60
 const NUM_ROWS = 721
 const NUM_COLS = 1440
@@ -43,10 +49,10 @@ export function getGeoidMeanSeaLevel (latitude, longitude) {
   const lonLeft = leftCol * INTERVAL
   const lonRight = rightCol * INTERVAL
 
-  const leftDistance = (lon - lonLeft)
-  const bottomDistance = (lat - latBottom)
-  const rightDistance = (lonRight - lon)
-  const topDistance = (latTop - lat)
+  const leftDistance = (lon - lonLeft) / INTERVAL
+  const bottomDistance = (lat - latBottom) / INTERVAL
+  const rightDistance = (lonRight - lon) / INTERVAL
+  const topDistance = (latTop - lat) / INTERVAL
 
   const pll = rightDistance * topDistance
   const plr = leftDistance * topDistance
@@ -57,11 +63,5 @@ export function getGeoidMeanSeaLevel (latitude, longitude) {
 
   const offset = (pll * ll) / tot + (plr * lr) / tot + (pur * ur) / tot + (pul * ul) / tot
 
-  return offset / 100
-}
-
-const gePostOffset = (row, col) => {
-  const k = row * NUM_COLS + col
-
-  return getData(k)
+  return offset
 }
