@@ -24,7 +24,6 @@ const getReferenceHeight = (lat, lon) => {
     })
     const r = /\s*([+-]?(?:[0-9]*[.])?[0-9]+)\s+([+-]?(?:[0-9]*[.])?[0-9]+)\s+([+-]?(?:[0-9]*[.])?[0-9]+)\s*/
     const m = r.exec(content)
-    console.log(m)
     if (!m[3]) {
       throw new Error('Invalid content')
     }
