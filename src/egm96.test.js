@@ -54,7 +54,7 @@ test('intersection test', () => {
 
 test('non intersection test', async () => {
   for (const [lat, lon] of samples) {
-    testComparison(lat, lon, false)
+    testComparison(lat, lon, true)
   }
 })
 
