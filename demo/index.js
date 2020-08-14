@@ -32,3 +32,5 @@ document.querySelector('#egtoel').addEventListener('submit', (e) => {
   result.textContent = `Ellipsoid altitude: ${val}m`
   result.style.display = 'inherit'
 })
+
+document.querySelector('#root').style.display = 'inherit'
