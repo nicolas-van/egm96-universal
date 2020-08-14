@@ -1,6 +1,6 @@
 {
   "name": "egm96-universal",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A library to convert between EGM96-relative altitudes and WGS84 ellipsoid-relative altitudes",
   "main": "dist/egm96-universal.cjs.js",
   "module": "dist/egm96-universal.esm.js",
