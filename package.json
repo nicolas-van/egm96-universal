@@ -23,6 +23,7 @@
     "egm96",
     "map",
     "wgs84",
+    "ellipsoid",
     "coordinate",
     "altitude"
   ],
