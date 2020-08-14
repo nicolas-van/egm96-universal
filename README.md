@@ -8,7 +8,7 @@ It uses the EGM96 sample data file provided by the [NGA](https://en.wikipedia.or
 
 This library is automatically tested by CI on [the reference implementation in Fortran](https://earth-info.nga.mil/GandG/wgs84/gravitymod/egm96/binary/binarygeoid.html).
 
-Works both in the browser and node.js.
+Works both in the browser and node.js, you can test the result on [the demo page](https://nicolas-van.github.io/egm96-universal/).
 
 ## Usage
 
