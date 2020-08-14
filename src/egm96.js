@@ -36,13 +36,16 @@ const NUM_COLS = 1440
  */
 export function meanSeaLevel (latitude, longitude) {
   const lat = normalizeRadians(degreesToRadians(latitude))
-  const lon = normalizeRadians(degreesToRadians(longitude), Math.PI)
+  if (lat > Math.PI || lat < -Math.PI) {
+    throw new Error('Invalid latitude')
+  }
+  const lon = normalizeRadians(degreesToRadians(longitude))
 
   let topRow = Math.floor(((Math.PI / 2) - lat) / INTERVAL)
   topRow = topRow === NUM_ROWS - 1 ? topRow - 1 : topRow
   const bottomRow = topRow + 1
 
-  const leftCol = Math.floor(lon / INTERVAL)
+  const leftCol = Math.floor(normalizeRadians(lon, Math.PI) / INTERVAL)
   const rightCol = (leftCol + 1) % NUM_COLS
 
   const topLeft = getValue(topRow, leftCol)
@@ -50,7 +53,7 @@ export function meanSeaLevel (latitude, longitude) {
   const bottomRight = getValue(bottomRow, rightCol)
   const topRight = getValue(topRow, rightCol)
 
-  const lonLeft = leftCol * INTERVAL
+  const lonLeft = normalizeRadians(leftCol * INTERVAL)
   const latTop = (Math.PI / 2) - (topRow * INTERVAL)
 
   const leftProp = (lon - lonLeft) / INTERVAL
