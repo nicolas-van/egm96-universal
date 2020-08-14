@@ -4,3 +4,5 @@
 /OUTINTPT.DAT
 /reference/intptdac
 /dist
+/public
+/.cache

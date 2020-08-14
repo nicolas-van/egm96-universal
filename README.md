@@ -27,7 +27,7 @@ const egm96 = require('egm96-universal')
 or
 
 ```
-import egm96 from 'egm96-universal'
+import * as egm96 from 'egm96-universal'
 ```
 
 ### Getting mean sea level according to EGM96

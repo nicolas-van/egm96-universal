@@ -11,7 +11,9 @@
     "lint": "npm run prebuild && eslint \"*.js\" \"src/**/*.js\"",
     "jest": "npm run prebuild && jest",
     "build": "npm run rollup",
-    "rollup": "rollup -c"
+    "rollup": "rollup -c",
+    "website-build": "npm run prebuild && parcel build demo/index.html -d public",
+    "website-dev": "npm run prebuild && parcel demo/index.html -d public"
   },
   "repository": {
     "type": "git",
@@ -46,7 +48,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "jest": "^26.3.0",
-    "parcel": "^1.12.4",
+    "parcel-bundler": "^1.12.4",
     "rollup": "^2.23.1"
   },
   "dependencies": {

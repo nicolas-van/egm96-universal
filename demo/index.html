@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <title>egm96-universal Demo</title>
+  </head>
+  <body>
+    <div class="container mt-3">
+      <h1>egm96-universal Demo</h1>
+      <div class="mb-5">
+        <h2>Mean Sea Level</h2>
+        <form id="msl" class="mb-3">
+          <div class="form-group">
+            <label>Latitude</label>
+            <input type="number" class="form-control" id="msl-latitude" value="0">
+          </div>
+          <div class="form-group">
+            <label>Longitude</label>
+            <input type="number" class="form-control" id="msl-longitude" value="0">
+          </div>
+          <button type="submit" class="btn btn-primary">Calculate</button>
+        </form>
+        <div id="msl-result" class="alert alert-primary" style="display: none">
+        </div>
+      </div>
+      <div class="mb-5">
+        <h2>Ellispoid to EGM96</h2>
+        <form id="eltoeg" class="mb-3">
+          <div class="form-group">
+            <label>Latitude</label>
+            <input type="number" class="form-control" id="eltoeg-latitude" value="0">
+          </div>
+          <div class="form-group">
+            <label>Longitude</label>
+            <input type="number" class="form-control" id="eltoeg-longitude" value="0">
+          </div>
+          <div class="form-group">
+            <label>Altitude</label>
+            <input type="number" class="form-control" id="eltoeg-altitude" value="0">
+          </div>
+          <button type="submit" class="btn btn-primary">Calculate</button>
+        </form>
+        <div id="eltoeg-result" class="alert alert-primary" style="display: none">
+        </div>
+      </div>
+      <div class="mb-5">
+        <h2>EGM96 to Ellipsoid</h2>
+        <form id="egtoel" class="mb-3">
+          <div class="form-group">
+            <label>Latitude</label>
+            <input type="number" class="form-control" id="egtoel-latitude" value="0">
+          </div>
+          <div class="form-group">
+            <label>Longitude</label>
+            <input type="number" class="form-control" id="egtoel-longitude" value="0">
+          </div>
+          <div class="form-group">
+            <label>Altitude</label>
+            <input type="number" class="form-control" id="egtoel-altitude" value="0">
+          </div>
+          <button type="submit" class="btn btn-primary">Calculate</button>
+        </form>
+        <div id="egtoel-result" class="alert alert-primary" style="display: none">
+        </div>
+      </div>
+    </div>
+
+    <a href="https://github.com/nicolas-van/egm96-universal"
+      style="position: fixed; top: 0; right: 0;">
+      <img loading="lazy" width="149" height="149"
+        src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149"
+        class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1">
+    </a>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="./index.js"></script>
+  </body>
+</html>
