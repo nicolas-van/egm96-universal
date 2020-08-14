@@ -12,7 +12,7 @@
     "jest": "npm run prebuild && jest",
     "build": "npm run rollup",
     "rollup": "rollup -c",
-    "website-build": "npm run prebuild && parcel build demo/index.html -d public",
+    "website-build": "npm run prebuild && parcel build demo/index.html -d public --public-url ./",
     "website-dev": "npm run prebuild && parcel demo/index.html -d public"
   },
   "repository": {
