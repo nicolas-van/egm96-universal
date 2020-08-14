@@ -2,13 +2,16 @@
   "name": "egm96-universal",
   "version": "0.0.0",
   "description": "A library to convert between EGM96-relative altitudes and WGS84 ellipsoid-relative altitudes",
-  "main": "egm96.js",
+  "main": "dist/egm96-universal.cjs.js",
+  "module": "dist/egm96-universal.esm.js",
   "scripts": {
     "prebuild": "npm run convert-data",
+    "convert-data": "node ./convertDataFile.js",
     "test": "npm run prebuild && npm run lint && npm run jest",
     "lint": "npm run prebuild && eslint \"*.js\" \"src/**/*.js\"",
     "jest": "npm run prebuild && jest",
-    "convert-data": "node ./convertDataFile.js"
+    "build": "npm run rollup",
+    "rollup": "rollup -c"
   },
   "repository": {
     "type": "git",
@@ -30,6 +33,8 @@
   "devDependencies": {
     "@babel/core": "^7.11.1",
     "@babel/preset-env": "^7.11.0",
+    "@rollup/plugin-commonjs": "^15.0.0",
+    "@rollup/plugin-node-resolve": "^9.0.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.3.0",
     "eslint": "^7.6.0",
