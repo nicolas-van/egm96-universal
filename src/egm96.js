@@ -9,14 +9,14 @@ const getData = (id) => {
   return dt.getInt16(id * 2, false)
 }
 
-const gePostOffset = (row, col) => {
+const getValue = (row, col) => {
   const k = row * NUM_COLS + col
 
   return getData(k) / 100
 }
 
 const degreesToRadians = (degrees) => {
-  return degrees * (Math.PI / 180);
+  return degrees * (Math.PI / 180)
 }
 
 const normalizeRadians = (rads, center = 0) => {
@@ -45,10 +45,10 @@ export function meanSeaLevel (latitude, longitude) {
   const leftCol = Math.floor(lon / INTERVAL)
   const rightCol = (leftCol + 1) % NUM_COLS
 
-  const ul = gePostOffset(topRow, leftCol)
-  const ll = gePostOffset(bottomRow, leftCol)
-  const lr = gePostOffset(bottomRow, rightCol)
-  const ur = gePostOffset(topRow, rightCol)
+  const topLeft = getValue(topRow, leftCol)
+  const bottomLeft = getValue(bottomRow, leftCol)
+  const bottomRight = getValue(bottomRow, rightCol)
+  const topRight = getValue(topRow, rightCol)
 
   const lonLeft = leftCol * INTERVAL
   const latTop = (Math.PI / 2) - (topRow * INTERVAL)
@@ -56,12 +56,12 @@ export function meanSeaLevel (latitude, longitude) {
   const leftProp = (lon - lonLeft) / INTERVAL
   const topProp = (latTop - lat) / INTERVAL
 
-  return bilinearInterpolation(ul, ll, lr, ur, leftProp, topProp)
+  return bilinearInterpolation(topLeft, bottomLeft, bottomRight, topRight, leftProp, topProp)
 }
 
-const bilinearInterpolation = (ul, ll, lr, ur, x, y) => {
-  const top = linearInterpolation(ul, ur, x)
-  const bottom = linearInterpolation(ll, lr, x)
+const bilinearInterpolation = (topLeft, bottomLeft, bottomRight, topRight, x, y) => {
+  const top = linearInterpolation(topLeft, topRight, x)
+  const bottom = linearInterpolation(bottomLeft, bottomRight, x)
 
   return linearInterpolation(top, bottom, y)
 }
