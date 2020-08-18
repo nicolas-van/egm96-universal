@@ -28,7 +28,12 @@
     "wgs84",
     "ellipsoid",
     "coordinate",
-    "altitude"
+    "altitude",
+    "earth",
+    "gravity",
+    "model",
+    "1996",
+    "cesium"
   ],
   "author": "Nicolas Vanhoren",
   "license": "MIT",

@@ -4,11 +4,13 @@
 
 A library to convert between EGM96-relative altitudes and WGS84 ellipsoid-relative altitudes.
 
+Works both in the browser and node.js, you can test the result on [the demo page](https://nicolas-van.github.io/egm96-universal/).
+
 It uses the EGM96 sample data file provided by the [NGA](https://en.wikipedia.org/wiki/National_Geospatial-Intelligence_Agency) to lookup reference mean sea level and performs bilinear interpolation on the result.
 
 This library is automatically tested by CI on [the reference implementation in Fortran](https://earth-info.nga.mil/GandG/wgs84/gravitymod/egm96/binary/binarygeoid.html).
 
-Works both in the browser and node.js, you can test the result on [the demo page](https://nicolas-van.github.io/egm96-universal/).
+This project was initially created to allow usage of KML files (that use EGM96 as reference according to the [specification](https://www.ogc.org/standards/kml), just like Google Earth) in [Cesium](https://cesium.com/index.html). It should work for any similar task that necessitate conversion between the two references.
 
 ## Usage
 
