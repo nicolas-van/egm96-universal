@@ -35,19 +35,19 @@ const getReferenceHeight = (lat, lon) => {
   }
 }
 
-const testComparison = (lat, lon, display) => {
+const testComparison = (lat, lon, display = false, precision = 0) => {
   const ref = getReferenceHeight(lat, lon)
   const calc = egm96.meanSeaLevel(lat, lon)
   if (display) {
     console.log(`${lat} ${lon}: ref=${ref}, calc=${calc}`)
   }
-  expect(calc).toBeCloseTo(ref, 0)
+  expect(calc).toBeCloseTo(ref, precision)
 }
 
 test('intersection test', () => {
   for (let a = -89; a <= 90; a += 30) {
     for (let o = -179; o <= 180; o += 30) {
-      testComparison(a, o, false)
+      testComparison(a, o, false, 3)
     }
   }
 })
