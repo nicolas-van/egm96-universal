@@ -3,6 +3,7 @@ import * as egm96 from './egm96'
 import * as cp from 'child_process'
 import path from 'path'
 import fs from 'fs'
+import _ from 'lodash'
 
 const clean = (path) => {
   if (fs.existsSync(path)) {
@@ -10,12 +11,19 @@ const clean = (path) => {
   }
 }
 
-const getReferenceHeight = (lat, lon) => {
-  lon = lon < 0 ? lon + 360 : lon
+const getReferenceHeightsLow = (coords) => {
+  if (coords.length === 0) {
+    return []
+  }
+  let input = ''
+  for (let [lat, lon] of coords) {
+    lon = lon < 0 ? lon + 360 : lon
+    input += `${lat} ${lon}\n`
+  }
   try {
     clean(path.join(__dirname, '../INPUT.DAT'))
     clean(path.join(__dirname, '../OUTINTPT.DAT'))
-    fs.writeFileSync(path.join(__dirname, '../INPUT.DAT'), `${lat} ${lon}`)
+    fs.writeFileSync(path.join(__dirname, '../INPUT.DAT'), input)
     cp.execFileSync(path.join(__dirname, '../reference/intptdac'), {
       cwd: path.join(__dirname, '../'),
       stdio: 'ignore'
@@ -23,16 +31,53 @@ const getReferenceHeight = (lat, lon) => {
     const content = fs.readFileSync(path.join(__dirname, '../OUTINTPT.DAT'), {
       encoding: 'utf-8'
     })
-    const r = /\s*([+-]?(?:[0-9]*[.])?[0-9]+)\s+([+-]?(?:[0-9]*[.])?[0-9]+)\s+([+-]?(?:[0-9]*[.])?[0-9]+)\s*/
-    const m = r.exec(content)
-    if (!m[3]) {
-      throw new Error('Invalid content')
+    const r = /\s*([+-]?(?:[0-9]*[.])?[0-9]+)\s+([+-]?(?:[0-9]*[.])?[0-9]+)\s+([+-]?(?:[0-9]*[.])?[0-9]+)\s*/g
+    let m
+    const res = []
+    while ((m = r.exec(content)) !== null) {
+      res.push(parseFloat(m[3]))
     }
-    return parseFloat(m[3])
+    if (res.length < coords.length) {
+      throw new Error('Error retrieving coordinates')
+    }
+    return res
   } finally {
     clean(path.join(__dirname, '../INPUT.DAT'))
     clean(path.join(__dirname, '../OUTINTPT.DAT'))
   }
+}
+
+const getReferenceHeightsBatch = (coords) => {
+  const chuncks = _.chunk(coords, 50)
+  return _.flatten(_.map(chuncks, (chunck) => getReferenceHeightsLow(chunck)))
+}
+
+const cache = {}
+// cached version
+const getReferenceHeights = (coords) => {
+  const toGet = []
+  for (const [lat, lon] of coords) {
+    const key = `${lat} ${lon}`
+    if (!(key in cache)) {
+      toGet.push([lat, lon])
+    }
+  }
+  const querried = getReferenceHeightsBatch(toGet)
+  for (let i = 0; i < toGet.length; i++) {
+    const [lat, lon] = toGet[i]
+    const key = `${lat} ${lon}`
+    cache[key] = querried[i]
+  }
+  const results = []
+  for (const [lat, lon] of coords) {
+    const key = `${lat} ${lon}`
+    results.push(cache[key])
+  }
+  return results
+}
+
+const getReferenceHeight = (lat, lon) => {
+  return getReferenceHeights([[lat, lon]])[0]
 }
 
 const testComparison = (lat, lon, display = false, precision = 0) => {
@@ -45,14 +90,20 @@ const testComparison = (lat, lon, display = false, precision = 0) => {
 }
 
 test('intersection test', () => {
-  for (let a = -89; a <= 90; a += 30) {
-    for (let o = -179; o <= 180; o += 30) {
-      testComparison(a, o, false, 3)
+  const coords = []
+  for (let a = -85; a <= 85; a += 20) {
+    for (let o = -175; o <= 175; o += 20) {
+      coords.push([a, o])
     }
+  }
+  getReferenceHeights(coords)
+  for (const [lat, lon] of coords) {
+    testComparison(lat, lon, false, 3)
   }
 })
 
 test('non intersection test', () => {
+  getReferenceHeights(samples)
   for (const [lat, lon] of samples) {
     testComparison(lat, lon, false)
   }
