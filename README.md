@@ -1,6 +1,6 @@
 # egm96-universal
 
-![Node.js CI](https://github.com/nicolas-van/egm96-universal/workflows/Node.js%20CI/badge.svg) [![npm](https://img.shields.io/npm/v/egm96-universal)](https://www.npmjs.com/package/egm96-universal)
+[![Node.js CI](https://github.com/nicolas-van/egm96-universal/workflows/Node.js%20CI/badge.svg)](https://github.com/nicolas-van/egm96-universal/actions?query=workflow%3A%22Node.js+CI%22) [![npm](https://img.shields.io/npm/v/egm96-universal)](https://www.npmjs.com/package/egm96-universal)
 
 A library to convert between EGM96-relative altitudes and WGS84 ellipsoid-relative altitudes.
 
