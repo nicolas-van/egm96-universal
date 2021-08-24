@@ -6,22 +6,38 @@ name: Node.js CI
 on: ["push", "pull_request"]
 
 jobs:
-  build:
+  test:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [12.x, 13.x, 14.x, 15.x, 16.x]
 
     steps:
     - uses: actions/checkout@v2
-#    - run: sudo apt install gfortran
-#    - run: cd reference && make && cd ..
+    - run: sudo apt install gfortran
+    - run: cd reference && make && cd ..
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - run: npm run build --if-present
+    - run: npm run build
     - run: npm test
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        flag-name: run-${{ matrix.test_number }}
+        parallel: true
+
+  finish:
+    needs: test
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Coveralls Finished
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.github_token }}
+        parallel-finished: true

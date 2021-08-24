@@ -18,7 +18,7 @@
     "convert-data": "node ./convertDataFile.js",
     "test": "npm run prebuild && npm run lint && npm run jest",
     "lint": "npm run prebuild && eslint \"*.js\" \"src/**/*.js\"",
-    "jest": "npm run prebuild && jest",
+    "jest": "npm run prebuild && jest --config=./jest.config.js --coverage",
     "build": "npm run rollup",
     "rollup": "rollup -c",
     "website-build": "npm run prebuild && parcel build demo/index.html --dist-dir public --public-url ./",

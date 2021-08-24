@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 import * as egm96 from './egm96'
 import * as cp from 'child_process'
@@ -94,7 +93,6 @@ test('empty test', () => {
   expect(true).toBe(true)
 })
 
-/*
 test('intersection test', () => {
   const coords = []
   for (let a = -85; a <= 85; a += 20) {
@@ -114,7 +112,6 @@ test('non intersection test', () => {
     testComparison(lat, lon, false)
   }
 })
-*/
 
 // 100 randomly generated coordinates
 const samples = [
