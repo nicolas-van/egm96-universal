@@ -5,8 +5,14 @@
   "main": "dist/egm96-universal.cjs.js",
   "module": "dist/egm96-universal.esm.js",
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE.md"
   ],
+  "targets": {
+    "main": false,
+    "module": false
+  },
   "scripts": {
     "prebuild": "npm run convert-data",
     "convert-data": "node ./convertDataFile.js",
@@ -15,8 +21,8 @@
     "jest": "npm run prebuild && jest",
     "build": "npm run rollup",
     "rollup": "rollup -c",
-    "website-build": "npm run prebuild && parcel build demo/index.html -d public --public-url ./",
-    "website-dev": "npm run prebuild && parcel demo/index.html -d public"
+    "website-build": "npm run prebuild && parcel build demo/index.html --dist-dir public --public-url ./",
+    "website-dev": "npm run prebuild && parcel serve demo/index.html --dist-dir public"
   },
   "repository": {
     "type": "git",
@@ -42,27 +48,26 @@
   },
   "homepage": "https://github.com/nicolas-van/egm96-universal#readme",
   "devDependencies": {
-    "@babel/core": "^7.11.1",
-    "@babel/preset-env": "^7.11.0",
-    "@rollup/plugin-commonjs": "^15.0.0",
-    "@rollup/plugin-node-resolve": "^9.0.0",
-    "babel-eslint": "^10.1.0",
-    "babel-jest": "^26.3.0",
-    "eslint": "^7.6.0",
-    "eslint-config-standard": "^14.1.1",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jest": "^23.0.2",
-    "eslint-plugin-jsdoc": "^30.2.1",
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.4",
+    "babel-jest": "^27.0.6",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.24.1",
+    "eslint-plugin-jest": "^24.4.0",
+    "eslint-plugin-jsdoc": "^36.0.7",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1",
-    "jest": "^26.3.0",
-    "lodash": "^4.17.20",
-    "parcel-bundler": "^1.12.4",
-    "rollup": "^2.23.1"
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-standard": "^4.1.0",
+    "jest": "^27.0.6",
+    "lodash": "^4.17.21",
+    "parcel": "^2.0.0-rc.0",
+    "rollup": "^2.56.3"
   },
   "dependencies": {
-    "rfc4648": "^1.4.0"
+    "rfc4648": "^1.5.0"
   },
   "types": "index.d.ts"
 }

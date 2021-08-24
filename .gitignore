@@ -6,3 +6,4 @@
 /dist
 /public
 /.cache
+/.parcel-cache

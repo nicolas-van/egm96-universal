@@ -3,11 +3,7 @@
 
 name: Node.js CI
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: ["push", "pull_request"]
 
 jobs:
   build:
@@ -16,12 +12,12 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [16.x]
 
     steps:
     - uses: actions/checkout@v2
-    - run: sudo apt install gfortran
-    - run: cd reference && make && cd ..
+#    - run: sudo apt install gfortran
+#    - run: cd reference && make && cd ..
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
