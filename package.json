@@ -5,8 +5,14 @@
   "main": "dist/egm96-universal.cjs.js",
   "module": "dist/egm96-universal.esm.js",
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE.md"
   ],
+  "targets": {
+    "main": false,
+    "module": false
+  },
   "scripts": {
     "prebuild": "npm run convert-data",
     "convert-data": "node ./convertDataFile.js",
@@ -15,8 +21,8 @@
     "jest": "npm run prebuild && jest",
     "build": "npm run rollup",
     "rollup": "rollup -c",
-    "website-build": "npm run prebuild && parcel build demo/index.html -d public --public-url ./",
-    "website-dev": "npm run prebuild && parcel demo/index.html -d public"
+    "website-build": "npm run prebuild && parcel build demo/index.html --dist-dir public --public-url ./",
+    "website-dev": "npm run prebuild && parcel serve demo/index.html --dist-dir public"
   },
   "repository": {
     "type": "git",
@@ -46,7 +52,6 @@
     "@babel/preset-env": "^7.15.0",
     "@rollup/plugin-commonjs": "^20.0.0",
     "@rollup/plugin-node-resolve": "^13.0.4",
-    "babel-eslint": "^10.1.0",
     "babel-jest": "^27.0.6",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
@@ -58,7 +63,7 @@
     "eslint-plugin-standard": "^4.1.0",
     "jest": "^27.0.6",
     "lodash": "^4.17.21",
-    "parcel-bundler": "^1.12.4",
+    "parcel": "^2.0.0-rc.0",
     "rollup": "^2.56.3"
   },
   "dependencies": {
