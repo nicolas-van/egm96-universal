@@ -49,6 +49,12 @@ const egm96Alt = egm96.ellipsoidToEgm96(latitude, longitude, altitude)
 const ellipsoidAlt = egm96.egm96ToEllipsoid(latitude, longitude, altitude)
 ```
 
+## Changelog
+
+### 1.1.0
+
+* Added Typescript definitions
+
 ## License
 
 [See the license file](./LICENSE.md).
