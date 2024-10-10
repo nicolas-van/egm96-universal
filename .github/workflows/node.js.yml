@@ -8,7 +8,7 @@ on: ["push", "pull_request"]
 jobs:
   test:
 
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -34,7 +34,7 @@ jobs:
 
   finish:
     needs: test
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
     - name: Coveralls Finished
       uses: coverallsapp/github-action@master
