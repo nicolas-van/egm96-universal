@@ -16,7 +16,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - run: sudo apt install gfortran-7
+    - run: sudo apt install gfortran-6
     - run: cd reference && make && cd ..
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
